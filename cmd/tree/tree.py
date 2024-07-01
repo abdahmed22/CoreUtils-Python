@@ -1,7 +1,8 @@
-import sys, os 
+import sys, os
 
 numberofDirectories = 1
 numberofFiles = 0
+
 
 def printDirectory(entry, level):
     global numberofDirectories, numberofFiles
@@ -10,16 +11,17 @@ def printDirectory(entry, level):
     printDirectoryRecursion(entry, level, "    ")
     print(f"{numberofDirectories} directories, {numberofFiles} files")
 
+
 def printDirectoryRecursion(entryName, level, space):
     global numberofDirectories, numberofFiles
 
-    if level == 0: 
+    if level == 0:
         return
 
     c = os.listdir(entryName)
 
     if len(c) == 0:
-        return 
+        return
 
     level -= 1
 
@@ -40,24 +42,22 @@ directoryName = ""
 args = sys.argv[1:]
 
 if len(args) > 3:
-	print("Wrong Number of Arguments")
-	sys.exit()
-     
-if len(args) == 0:
-	treeLevel = -1
-	directoryName = os.getcwd()
+    print("Wrong Number of Arguments")
+    sys.exit()
 
-     
-elif args[0] == "-L" :
+if len(args) == 0:
+    treeLevel = -1
+    directoryName = os.getcwd()
+
+
+elif args[0] == "-L":
     treeLevel = int(args[1])
     if len(args) == 3:
         directoryName = args[2]
-    else :
+    else:
         directoryName = os.getcwd()
-else :
+else:
     treeLevel = -1
     directoryName = args[0]
-    
-printDirectory(directoryName, treeLevel)
-     
 
+printDirectory(directoryName, treeLevel)
