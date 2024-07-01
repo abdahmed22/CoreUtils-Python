@@ -1,9 +1,3 @@
-package main
+import sys
 
-import (
-	"os"
-)
-
-func main() {
-	os.Exit(0)
-}
+sys.exit(0)
