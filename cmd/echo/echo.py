@@ -1,25 +1,22 @@
-package main
+import sys
 
-import (
-	"flag"
-	"fmt"
-)
+newLine = False
 
-func main() {
-	var newLineFlag bool
+args = sys.argv[1:]
 
-	flag.BoolVar(&newLineFlag, "n", false, "New Line")
+if len(args) == 0:
+	print("Wrong Number of Arguments")
+	sys.exit()
 
-	flag.Parse()
+if args[0] == "-n" :
+	newLine = True
+	args = args[1:]
 
-	args := flag.Args()
-
-	if len(args) != 0 {
-		for i := range args {
-			fmt.Printf("%s ", args[i])
-			if newLineFlag {
-				fmt.Printf("\n")
-			}
-		}
-	}
-}
+if len(args) != 0:
+	for word in args:
+		if newLine :
+			print(word)
+		else:
+			print(word, end =" ")
+if not(newLine) :
+	print()
