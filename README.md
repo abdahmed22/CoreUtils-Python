@@ -7,8 +7,7 @@
 - Default 10 lines.
 
 ```console
-user@user-VirtualBox:~$ go build head.go
-user@user-VirtualBox:~$ ./head -n 4 fileName
+user@user-VirtualBox:~$ python3 head.py -n 4 fileName
 ```
 
 ### 2. tail
@@ -18,8 +17,7 @@ user@user-VirtualBox:~$ ./head -n 4 fileName
 - Default 10 lines.
 
 ```console
-user@user-VirtualBox:~$ go build tail.go
-user@user-VirtualBox:~$ ./tail -n 4 fileName
+user@user-VirtualBox:~$ python3 tail.py -n 4 fileName
 ```
 
 ### 3. wc (word count)
@@ -29,8 +27,7 @@ user@user-VirtualBox:~$ ./tail -n 4 fileName
 - Default displays lines, words, and characters.
 
 ```console
-user@user-VirtualBox:~$ go build wc.go
-user@user-VirtualBox:~$ ./wc -w -c  fileName
+user@user-VirtualBox:~$ python3 wc.py -w -c  fileName
 ```
 
 ### 4. cat
@@ -39,8 +36,7 @@ user@user-VirtualBox:~$ ./wc -w -c  fileName
 - Add a -n flag to number output lines.
 
 ```console
-user@user-VirtualBox:~$ go build cat.go
-user@user-VirtualBox:~$ ./cat -n fileName1 fileName2 fileName3
+user@user-VirtualBox:~$ python3 cat.py -n fileName1 fileName2 fileName3
 ```
 
 ### 5. echo
@@ -49,16 +45,14 @@ user@user-VirtualBox:~$ ./cat -n fileName1 fileName2 fileName3
 - Add a -n flag to omit the trailing newline.
 
 ```console
-user@user-VirtualBox:~$ go build echo.go
-user@user-VirtualBox:~$ ./echo -n hello world
+user@user-VirtualBox:~$ python3 echo.py -n hello world
 ```
 
 ### 6. env
 - Print enviroment variables to standard output.
 
 ```console
-user@user-VirtualBox:~$ go build env.go
-user@user-VirtualBox:~$ ./env
+user@user-VirtualBox:~$ python3 env.py
 ```
 
 ### 7. tree
@@ -67,8 +61,7 @@ user@user-VirtualBox:~$ ./env
 - Add a -L flag to stop at a certain level.
 
 ```console
-user@user-VirtualBox:~$ go build tree.go
-user@user-VirtualBox:~$ ./tree -L 5 DirectoryName
+user@user-VirtualBox:~$ python3 tree.py -L 5 DirectoryName
 ```
 
 ### 8. yes
@@ -77,8 +70,7 @@ user@user-VirtualBox:~$ ./tree -L 5 DirectoryName
 - Default message "y".
 
 ```console
-user@user-VirtualBox:~$ go build yes.go
-user@user-VirtualBox:~$ ./yes hello world
+user@user-VirtualBox:~$ python3 yes.py hello world
 ```
 
 ### 9. true
@@ -86,8 +78,7 @@ user@user-VirtualBox:~$ ./yes hello world
 - Returns a successful exit status code of 0.
 
 ```console
-user@user-VirtualBox:~$ go build true.go
-user@user-VirtualBox:~$ ./true 
+user@user-VirtualBox:~$ python3 true.py 
 ```
 
 ### 10. false
@@ -95,6 +86,5 @@ user@user-VirtualBox:~$ ./true
 - Returns an unsuccessful exit status code of 1.
 
 ```console
-user@user-VirtualBox:~$ go build false.go
-user@user-VirtualBox:~$ ./false
+user@user-VirtualBox:~$ python3 false.py
 ```
