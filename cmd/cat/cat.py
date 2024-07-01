@@ -1,51 +1,25 @@
-package main
+import sys
 
-import (
-	"bufio"
-	"flag"
-	"fmt"
-	"log"
-	"os"
-)
+numberLines = False
 
-func main() {
-	var numberLinesFlag bool
-	var err error
-	var file *os.File
-	lineNumber := 1
+args = sys.argv[1:]
 
-	flag.BoolVar(&numberLinesFlag, "n", false, "Number of Lines")
+if len(args) == 0:
+	print("Wrong Number of Arguments")
+	sys.exit()
 
-	flag.Parse()
+if args[0] == "-n" :
+	numberLines = True
+	args = args[1:]
+i = 1
+for fileName in args:
+	file = open(fileName, 'r')
+	Lines = file.readlines()
+	file.close()
 
-	args := flag.Args()
-	if len(args) == 0 {
-		log.Fatal("Wrong Number of Arguments")
-	}
-
-	for i := range args {
-
-		file, err = os.Open(args[i])
-		if err != nil {
-			fmt.Println("Error trying to open file!")
-			panic(err)
-		}
-
-		fileScanner := bufio.NewScanner(file)
-
-		fileScanner.Split(bufio.ScanLines)
-
-		for fileScanner.Scan() {
-			if numberLinesFlag {
-				fmt.Printf("Line Number : %d   ", lineNumber)
-			}
-			fmt.Printf("%s\n\n", fileScanner.Text())
-			lineNumber++
-		}
-
-		defer file.Close()
-	}
-
-	defer file.Close()
-
-}
+	for line in Lines:
+		if numberLines :
+			print(i," ",line)
+			i += 1
+		else:
+			print(line)
