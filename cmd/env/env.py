@@ -1,12 +1,4 @@
-package main
+import os
 
-import (
-	"fmt"
-	"os"
-)
-
-func main() {
-	for _, e := range os.Environ() {
-		fmt.Println(e)
-	}
-}
+for key, value in os.environ.items():
+    print(f'{key}= {value}')
