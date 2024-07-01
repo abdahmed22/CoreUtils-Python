@@ -1,83 +1,55 @@
-package main
+import sys, os 
 
-import (
-	"flag"
-	"fmt"
-	"log"
-	"os"
-	"path/filepath"
-	"strconv"
-)
+numberofDirectories = 1
+numberofFiles = 0
 
-var numberofDirectories int = 1
-var numberofFiles int = 0
+def printDirectory(entry, level):
+    print(f"|_{entry}")
+    printDirectoryRecursion(entry, level, "    ")
+    print(f"{numberofDirectories} directories, {numberofFiles} files")
 
-func printDirectory(entry string, level int) {
-	fmt.Printf("|_%s\n", entry)
-	printDirectoryRecursion(entry, level, "    ")
-	fmt.Printf("%d directories, %d files\n", numberofDirectories, numberofFiles)
-}
+def printDirectoryRecursion(entryName, level, space):
 
-func printDirectoryRecursion(entryName string, level int, space string) {
-	if level == 0 { //first exit condition
-		return
-	}
+    if level == 0: 
+        return
 
-	c, err := os.ReadDir(entryName)
-	if err != nil {
-		fmt.Println("Error trying to read directory")
-		panic(err)
-	}
+    c = os.listdir(entryName)
 
-	if len(c) == 0 {
-		return //second exit condition
-	}
-	level--
+    if len(c) == 0:
+        return 
 
-	for _, entry := range c {
-		if entry.IsDir() {
-			numberofDirectories++
-			fmt.Printf("%s|_%s\n", space, entry.Name())
-			printDirectoryRecursion(filepath.Join(entryName, entry.Name()), level, space+"    ")
-		} else {
-			numberofFiles++
-			fmt.Printf("%s|_%s\n", space, entry.Name())
-		}
-	}
-}
+    level -= 1
 
-func main() {
-	var treeLevelFlag bool
-	var treeLevel int
-	var directoryName string
-	var err error
+    for entry in c:
+        fullPath = os.path.join(entryName, entry)
+        if os.path.isdir(fullPath):
+            numberofDirectories += 1
+            print(f"{space}|_{entry}")
+            printDirectoryRecursion(fullPath, level, space + "    ")
+        else:
+            numberofFiles += 1
+            print(f"{space}|_{entry}")
 
-	flag.BoolVar(&treeLevelFlag, "L", false, "Tree level to stop at")
 
-	flag.Parse()
+treeLevel = 0
+directoryName = ""
 
-	args := flag.Args()
-	if treeLevelFlag && len(args) == 2 {
-		treeLevel, err = strconv.Atoi(args[0])
-		if err != nil {
-			fmt.Println("Error trying to convert string to integer!")
-			panic(err)
-		}
-		directoryName = args[1]
-	} else if len(args) == 1 {
-		treeLevel = -1
-		directoryName = args[0]
-	} else if len(args) == 0 {
-		treeLevel = -1
-		directoryName, err = os.Getwd()
-		if err != nil {
-			fmt.Println("Error trying to get current directory!")
-			panic(err)
-		}
-	} else {
-		log.Fatal("Wrong Number of Arguments")
-	}
+args = sys.argv[1:]
 
-	printDirectory(directoryName, treeLevel)
+if len(args) > 3:
+	print("Wrong Number of Arguments")
+	sys.exit()
 
-}
+if args[0] == "-L" :
+	treeLevel = int(args[1])
+	directoryName = args[2]
+elif len(args) == 0:
+	treeLevel = -1
+	directoryName = os.getcwd()
+else :
+    treeLevel = -1
+    directoryName = args[0]
+    
+printDirectory(directoryName, treeLevel)
+     
+
