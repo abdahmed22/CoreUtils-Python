@@ -1,58 +1,29 @@
-package main
+import sys
 
-import (
-	"bufio"
-	"flag"
-	"fmt"
-	"log"
-	"os"
-	"strconv"
-)
+numberofLines = 0
 
-func main() {
-	var numberofLinesFlag bool
-	var numberofLines int
-	var err error
-	var fileName string
-	var file *os.File
 
-	flag.BoolVar(&numberofLinesFlag, "n", false, "Number of Lines")
+fileName = ""
 
-	flag.Parse()
+args = sys.argv[1:]
 
-	args := flag.Args()
-	if numberofLinesFlag && len(args) == 2 {
-		numberofLines, err = strconv.Atoi(args[0])
-		if err != nil {
-			fmt.Println("Error trying to convert string to integer!")
-			panic(err)
-		}
-		fileName = args[1]
-	} else if len(args) == 1 {
-		numberofLines = 10
-		fileName = args[0]
-	} else {
-		log.Fatal("Wrong Number of Arguments")
-	}
+if len(args) == 0 or len(args) > 3:
+	print("Wrong Number of Arguments")
+	sys.exit()
 
-	file, err = os.Open(fileName)
-	if err != nil {
-		fmt.Println("Error trying to open file!")
-		panic(err)
-	}
+if args[0] == "-n" :
+	numberofLines = int(args[1])
+	fileName = args[2]
+else :
+	numberofLines = 10
+	fileName = args[0]
 
-	fileScanner := bufio.NewScanner(file)
+file = open(fileName, 'r')
+Lines = file.readlines()
+file.close()
 
-	fileScanner.Split(bufio.ScanLines)
-
-	for fileScanner.Scan() {
-		if numberofLines == 0 {
-			break
-		}
-		fmt.Printf("%s\n\n", fileScanner.Text())
-		numberofLines--
-	}
-
-	defer file.Close()
-
-}
+for line in Lines:
+	if numberofLines <= 0:
+		break
+	print(line)
+	numberofLines -=1
